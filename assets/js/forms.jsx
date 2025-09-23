@@ -390,7 +390,9 @@ const EssentialOilForm = ({ onComplete, initialData }) => {
                       <Input
                         type="number"
                         min="0"
-                        value={constituent.noael ?? ''}
+                        value={
+                          constituent.noael !== undefined && constituent.noael !== null ? constituent.noael : ''
+                        }
                         onChange={(event) =>
                           updateConstituent(index, 'noael', event.target.value ? parseFloat(event.target.value) : undefined)
                         }
@@ -403,7 +405,11 @@ const EssentialOilForm = ({ onComplete, initialData }) => {
                         type="number"
                         min="0"
                         step="0.01"
-                        value={constituent.ifra_limit ?? ''}
+                        value={
+                          constituent.ifra_limit !== undefined && constituent.ifra_limit !== null
+                            ? constituent.ifra_limit
+                            : ''
+                        }
                         onChange={(event) =>
                           updateConstituent(index, 'ifra_limit', event.target.value ? parseFloat(event.target.value) : undefined)
                         }
@@ -416,7 +422,11 @@ const EssentialOilForm = ({ onComplete, initialData }) => {
                         type="number"
                         min="0"
                         step="0.01"
-                        value={constituent.cir_limit ?? ''}
+                        value={
+                          constituent.cir_limit !== undefined && constituent.cir_limit !== null
+                            ? constituent.cir_limit
+                            : ''
+                        }
                         onChange={(event) =>
                           updateConstituent(index, 'cir_limit', event.target.value ? parseFloat(event.target.value) : undefined)
                         }
@@ -565,12 +575,19 @@ const MultiOilForm = ({ onComplete, initialData }) => {
   }
 
   const handleGCMSUpload = (event) => {
-    const file = event.target.files?.[0]
+    const inputElement = event.target
+    const files = inputElement && inputElement.files ? inputElement.files : null
+    const file = files && files.length > 0 ? files[0] : null
     if (!file) return
     const reader = new FileReader()
     reader.onload = (e) => {
       try {
-        const text = e.target?.result
+        const readerTarget = e.target
+        if (!readerTarget || typeof readerTarget.result !== 'string') {
+          setErrors({ gcms: 'Erreur lors de la lecture du fichier GC-MS' })
+          return
+        }
+        const text = readerTarget.result
         const lines = text.split('\n').filter((line) => line.trim())
         const constituents = []
         for (let i = 1; i < lines.length; i++) {

@@ -79,7 +79,11 @@ const Checkbox = ({ onCheckedChange, className = '', ...props }) => (
   <input
     type="checkbox"
     className={cn('h-4 w-4 rounded border border-slate-300 text-blue-600 focus:ring-blue-500 focus:ring-offset-1', className)}
-    onChange={(event) => onCheckedChange?.(event.target.checked)}
+    onChange={(event) => {
+      if (onCheckedChange) {
+        onCheckedChange(event.target.checked)
+      }
+    }}
     {...props}
   />
 )
@@ -89,7 +93,11 @@ const Switch = ({ checked = false, onCheckedChange, className = '', ...props }) 
     type="button"
     role="switch"
     aria-checked={checked}
-    onClick={() => onCheckedChange?.(!checked)}
+    onClick={() => {
+      if (onCheckedChange) {
+        onCheckedChange(!checked)
+      }
+    }}
     className={cn(
       'relative inline-flex h-6 w-11 items-center rounded-full border-2 border-transparent transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2',
       checked ? 'bg-blue-600' : 'bg-slate-300',
@@ -143,7 +151,11 @@ const Select = ({ value, defaultValue, onValueChange, options = [], placeholder,
   <select
     value={value}
     defaultValue={value === undefined ? defaultValue : undefined}
-    onChange={(event) => onValueChange?.(event.target.value)}
+    onChange={(event) => {
+      if (onValueChange) {
+        onValueChange(event.target.value)
+      }
+    }}
     className={cn(
       'flex h-10 w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2',
       className
