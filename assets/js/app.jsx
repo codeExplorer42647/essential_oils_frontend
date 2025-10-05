@@ -1,3 +1,4 @@
+(function() {
 const { Alert, AlertDescription, Card, CardContent, CardHeader, CardTitle, Icon } = window.UI
 const EssentialOilCalculator = window.EssentialOilCalculator
 
@@ -77,3 +78,4 @@ const App = () => {
 }
 
 ReactDOM.createRoot(document.getElementById('root')).render(<App />)
+})();

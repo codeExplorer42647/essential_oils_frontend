@@ -1,3 +1,4 @@
+(function() {
 const { useState } = React
 const {
   Card,
@@ -192,3 +193,4 @@ const EssentialOilCalculator = () => {
 }
 
 window.EssentialOilCalculator = EssentialOilCalculator
+})();

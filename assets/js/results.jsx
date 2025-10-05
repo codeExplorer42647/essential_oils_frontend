@@ -1,3 +1,4 @@
+(function() {
 const {
   Card,
   CardHeader,
@@ -447,3 +448,4 @@ const CalculationResults = ({ results, onReset }) => {
 }
 
 window.CalculationResults = CalculationResults
+})();
