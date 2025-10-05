@@ -17,6 +17,29 @@ const CalculationResults = window.CalculationResults
 
 const apiUrl = 'https://app-ggdmpfbn.fly.dev'
 
+const formatApiError = (errorData) => {
+  if (!errorData || !errorData.detail) {
+    return 'Erreur de calcul'
+  }
+  
+  if (Array.isArray(errorData.detail)) {
+    const messages = errorData.detail
+      .map(err => err.msg || err.message || String(err))
+      .filter(msg => msg)
+    return messages.length > 0 ? messages.join('; ') : 'Erreur de validation'
+  }
+  
+  if (typeof errorData.detail === 'object' && errorData.detail.msg) {
+    return errorData.detail.msg
+  }
+  
+  if (typeof errorData.detail === 'string') {
+    return errorData.detail
+  }
+  
+  return 'Erreur de calcul'
+}
+
 const EssentialOilCalculator = () => {
   const [currentStep, setCurrentStep] = useState(1)
   const [isCalculating, setIsCalculating] = useState(false)
@@ -64,7 +87,7 @@ const EssentialOilCalculator = () => {
 
       if (!response.ok) {
         const errorData = await response.json()
-        throw new Error(errorData.detail || 'Erreur de calcul')
+        throw new Error(formatApiError(errorData))
       }
 
       const result = await response.json()
