@@ -1,3 +1,4 @@
+(function() {
 const cn = (...inputs) => {
   const classes = []
   inputs.flat(Infinity).forEach((input) => {
@@ -202,3 +203,4 @@ window.UI = {
   Select,
   Icon
 }
+})();

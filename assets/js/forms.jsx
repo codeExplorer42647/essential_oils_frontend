@@ -1,3 +1,4 @@
+(function() {
 const { useState } = React
 const {
   Button,
@@ -919,3 +920,4 @@ window.Forms = {
   MultiOilForm,
   ApplicationForm
 }
+})();
